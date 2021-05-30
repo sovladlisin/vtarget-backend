@@ -112,6 +112,8 @@ def Bot(request):
                 return HttpResponse('ok', content_type="text/plain", status=200)
 
             now_d = delay_time(datetime.datetime.now(), days=10)
+            print(user.date_shutter_banned,  now_d.date(),
+                  user.date_shutter_banned > now_d.date())
             if user.date_shutter_banned > now_d.date():
                 send_message(
                     'Лимит изображений на персональном аккаунте исчерпанна 10 дней.', user_id)
