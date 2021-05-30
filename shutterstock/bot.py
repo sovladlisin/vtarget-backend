@@ -115,7 +115,7 @@ def Bot(request):
 
             if user.date_shutter_banned > now_d.date():
                 send_message(
-                    'Лимит изображений на персональном аккаунте исчерпанна 10 дней.', user_id)
+                    'Ваш аккаунт был приостановлен на 10 дней.', user_id)
                 return None
 
             requested_image_url = text.split(' ')[1]
