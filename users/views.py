@@ -255,7 +255,20 @@ def shutterBanUser(request):
         data = json.loads(request.body.decode('utf-8'))
         user_pk = data.get('user_pk', None)
         user = VkUser.objects.get(pk=user_pk)
-        user.date_shutter_banned = datetime.datetime.now()
+        now = datetime.datetime.now()
+        user.date_shutter_banned = now.date()
+        user.save()
+        return JsonResponse(model_to_dict(user), safe=False)
+    return HttpResponse('Wrong request')
+
+
+@csrf_exempt
+def shutterUnbanUser(request):
+    if request.method == 'POST':
+        data = json.loads(request.body.decode('utf-8'))
+        user_pk = data.get('user_pk', None)
+        user = VkUser.objects.get(pk=user_pk)
+        user.date_shutter_banned = datetime.date(2009, 5, 3)
         user.save()
         return JsonResponse(model_to_dict(user), safe=False)
     return HttpResponse('Wrong request')

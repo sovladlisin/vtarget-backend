@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import shutterBanUser, checkServiceRequest, editServiceInfo, getServiceInfo, login, addPostToken, deletePostToken, getServiceRequests, applyServiceRequest, acceptServiceRequest, denyServiceRequest
+from .views import shutterUnbanUser, shutterBanUser, checkServiceRequest, editServiceInfo, getServiceInfo, login, addPostToken, deletePostToken, getServiceRequests, applyServiceRequest, acceptServiceRequest, denyServiceRequest
 
 # urlpatterns = [path('api/vkUserPermissions',
 #                     getPermissions, name='vkUserPermissions')]
@@ -24,4 +24,7 @@ urlpatterns = [path('auth/login',
                path('auth/checkServiceRequest',
                     checkServiceRequest, name='checkServiceRequest'),
                path('auth/shutterBanUser',
-                    shutterBanUser, name='shutterBanUser'), ]
+                    shutterBanUser, name='shutterBanUser'),
+               path('auth/shutterUnbanUser',
+                    shutterUnbanUser, name='shutterUnbanUser'),
+               ]
