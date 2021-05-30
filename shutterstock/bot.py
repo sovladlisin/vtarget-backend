@@ -111,9 +111,8 @@ def Bot(request):
                     'К сожалению у вас нет прав для пользования сервисом скачивания фотографий. Для получения доступа оставьте заявку на сайте нашего сервиса. При долгом рассмотрении заявки напишите Константину Крестинину.', user_id)
                 return HttpResponse('ok', content_type="text/plain", status=200)
 
-            now_d = delay_time(datetime.datetime.now(), days=10)
-            print(user.date_shutter_banned,  now_d.date(),
-                  user.date_shutter_banned > now_d.date())
+            now_d = delay_time(datetime.datetime.now(), days=-10)
+
             if user.date_shutter_banned > now_d.date():
                 send_message(
                     'Лимит изображений на персональном аккаунте исчерпанна 10 дней.', user_id)
