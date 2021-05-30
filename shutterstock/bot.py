@@ -216,8 +216,8 @@ def proccess_img(url, user_id, times=4):
         if img_file is not None:
 
             filtered_users = VkUser.objects.all().filter(user_id=user_id)
-            if filtered_users[0] is not None:
-                current_user = filtered_users[0]
+            if filtered_users.count() != 0:
+                current_user = filtered_users.first()
                 current_record = UserDownloadRecords.objects.filter(
                     user=current_user).first()
                 if current_record is not None:

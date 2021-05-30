@@ -1,4 +1,5 @@
 from datetime import datetime, timedelta
+from json.decoder import JSONDecodeError
 from dateutil.relativedelta import relativedelta
 import datetime as dt
 from django.shortcuts import render
@@ -193,8 +194,10 @@ def getDownloadRecords(request):
         for r in records:
             temp = {}
             temp['dates'] = json.loads(r.dates)
-            temp['user'] = model_to_dict(r.user)
-
+            temp_user = model_to_dict(r.user)
+            temp_user.token = ''
+            temp_user.post_token = ''
+            temp_user.shutterstock_token = ''
+            temp['user'] = temp_user
         return JsonResponse(result, safe=False)
-
     return HttpResponse('Wrong request')
