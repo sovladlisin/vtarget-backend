@@ -116,7 +116,7 @@ def Bot(request):
             if user.date_shutter_banned > now_d.date():
                 send_message(
                     'Ваш аккаунт был приостановлен на 10 дней.', user_id)
-                return None
+                return HttpResponse('ok', content_type="text/plain", status=200)
 
             requested_image_url = text.split(' ')[1]
 
