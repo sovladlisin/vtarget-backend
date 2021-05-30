@@ -1,0 +1,33 @@
+from django.urls import path
+from .bot import Bot
+from .views import addComment, deleteComment, deletePost, addPost, deletePermission, addPermission, getPermissions, getUser, getUsers, getPostById, getPostsByUserId, getPostComments, addPost
+# urlpatterns = [path('api/vkUserPermissions',
+#                     getPermissions, name='vkUserPermissions')]
+urlpatterns = [path('think_bank/api/getPostById', getPostById, name='getPostById'),
+               path('think_bank/api/getPostsByUserId',
+                    getPostsByUserId, name='getPostsByUserId'),
+               path('think_bank/api/getPostComments',
+                    getPostComments, name='getPostComments'),
+               path('think_bank/api/addPost',
+                    addPost, name='addPost'),
+               path('think_bank/api/getUsers',
+                    getUsers, name='getUsers'),
+               path('think_bank/api/getUser',
+                    getUser, name='getUser'),
+               path('think_bank/api/getPermissions',
+                    getPermissions, name='getPermissions'),
+               path('think_bank/api/deletePermission',
+                    deletePermission, name='deletePermission'),
+               path('think_bank/api/addPermission',
+                    addPermission, name='addPermission'),
+               path('think_bank/api/addPost',
+                    addPost, name='addPost'),
+               path('think_bank/api/deletePost',
+                    deletePost, name='deletePost'),
+               path('think_bank/api/addComment',
+                    addComment, name='addComment'),
+               path('think_bank/api/deleteComment',
+                    deleteComment, name='deleteComment'),
+               path('bot',
+                    Bot, name='bot'),
+               ]
