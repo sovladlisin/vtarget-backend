@@ -195,9 +195,10 @@ def getDownloadRecords(request):
             temp = {}
             temp['dates'] = json.loads(r.dates)
             temp_user = model_to_dict(r.user)
-            temp_user.token = ''
-            temp_user.post_token = ''
-            temp_user.shutterstock_token = ''
+            temp_user['token'] = ''
+            temp_user['post_token'] = ''
+            temp_user['shutterstock_token'] = ''
             temp['user'] = temp_user
+            result.append(temp)
         return JsonResponse(result, safe=False)
     return HttpResponse('Wrong request')
