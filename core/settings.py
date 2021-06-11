@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'db_file_storage',
     'scheduler.apps.SchedulerConfig',
     'utils',
+    'chat'
 ]
 
 REST_FRAMEWORK = {
