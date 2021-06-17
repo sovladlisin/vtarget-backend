@@ -47,14 +47,6 @@ def login(request):
                 old_user = users.first()
                 old_user.token = token
                 old_user.save()
-                if len(old_user.post_token) == 0:
-                    old_user.post_token = False
-                else:
-                    old_user.post_token = True
-                if len(old_user.shutterstock_token) == 0:
-                    old_user.shutterstock_token = False
-                else:
-                    old_user.shutterstock_token = True
                 return JsonResponse(model_to_dict(old_user), safe=False)
     return HttpResponse('Wrong request')
 
