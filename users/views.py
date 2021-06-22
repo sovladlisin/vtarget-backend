@@ -114,7 +114,7 @@ def applyServiceRequest(request):
                 {'name': 'Калькуляторы', 'id': 6, 'link': '/calc'},
                 {'name': 'Генератор идей', 'id': 7, 'link': '/idea-generator'},
                 {'name': 'Чат', 'id': 8, 'link': '/chat'},
-
+                {'name': 'Сертификаты', 'id': 9, 'link': '/certificates'}
                 ]
 
     if request.method == 'POST':
@@ -151,7 +151,8 @@ def acceptServiceRequest(request):
                     'id': 5, 'link': '/shutterstock'},
                 {'name': 'Калькуляторы', 'id': 6, 'link': '/calc'},
                 {'name': 'Генератор идей', 'id': 7, 'link': '/idea-generator'},
-                {'name': 'Чат', 'id': 8, 'link': '/chat'}, ]
+                {'name': 'Чат', 'id': 8, 'link': '/chat'},
+                {'name': 'Сертификаты', 'id': 9, 'link': '/certificates'}]
 
     if request.method == 'POST':
         user = json.loads(request.body.decode('utf-8'))
