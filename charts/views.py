@@ -40,6 +40,16 @@ def updateMedal(request):
 
 
 @csrf_exempt
+def getMedals(request):
+    if request.method == 'GET':
+        result = []
+        for medal in Medal.objects.all():
+            result.append(model_to_dict(medal))
+        return JsonResponse(result, safe=False)
+    return HttpResponse('Wrong request')
+
+
+@csrf_exempt
 def assignMedalToUser(request):
     if request.method == 'POST':
         data = json.loads(request.body.decode('utf-8'))

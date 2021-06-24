@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import updateMedal, assignMedalToUser, removeMedalFromUser
+from .views import updateMedal, assignMedalToUser, removeMedalFromUser, getMedals
 from .cabinets_view import getCabinets, createCabinet, deleteCabinet, updateCabinet, getCabinet
 from .charts_view import getCharts, createChart, deleteChart, updateChart
 from .tables_view import getTables, createTable, deleteTable, updateTable
@@ -13,6 +13,8 @@ urlpatterns = [path('charts/updateMedal',
                     assignMedalToUser, name='assignMedalToUser'),
                path('charts/removeMedalFromUser',
                     removeMedalFromUser, name='removeMedalFromUser'),
+               path('charts/getMedals',
+                    getMedals, name='getMedals'),
 
                path('charts/getCabinets',
                     getCabinets, name='getCabinets'),
