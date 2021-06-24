@@ -40,14 +40,18 @@ def login(request):
                 new_user = VkUser(
                     user_id=user_data['id'], user_img=user_data['photo_200'], user_name=user_data['first_name'] + ' ' + user_data['last_name'], token=token, post_token='')
                 new_user.save()
-                new_user.post_token = False
-                new_user.shutterstock_token = False
-                return JsonResponse(model_to_dict(new_user), safe=False)
+                new_user.post_token = ''
+                new_user.shutterstock_token = ''
+                result = model_to_dict(new_user)
+                result['medals'] = json.loads(new_user.medals)
+                return JsonResponse(result, safe=False)
             else:
                 old_user = users.first()
                 old_user.token = token
                 old_user.save()
-                return JsonResponse(model_to_dict(old_user), safe=False)
+                result = model_to_dict(old_user)
+                result['medals'] = json.loads(old_user.medals)
+                return JsonResponse(result, safe=False)
     return HttpResponse('Wrong request')
 
 
@@ -268,4 +272,37 @@ def shutterUnbanUser(request):
         user.date_shutter_banned = datetime.date(2009, 5, 3)
         user.save()
         return JsonResponse(model_to_dict(user), safe=False)
+    return HttpResponse('Wrong request')
+
+
+@csrf_exempt
+def getUserMedals(request):
+    if request.method == 'POST':
+        data = json.loads(request.body.decode('utf-8'))
+        user_pk = data.get('user_pk', None)
+        user = VkUser.objects.get(pk=user_pk)
+        result = json.loads(user.medals)
+        return JsonResponse(result, safe=False)
+    return HttpResponse('Wrong request')
+
+
+@csrf_exempt
+def getAllUsers(request):
+    if request.method == 'POST':
+        data = json.loads(request.body.decode('utf-8'))
+        admin_pk = data.get('admin_pk', None)
+        admin = VkUser.objects.get(pk=admin_pk)
+        if admin.is_admin is False:
+            return HttpResponse(status=403)
+
+        result = []
+        for user in VkUser.objects.all():
+            temp = model_to_dict(user)
+            temp['token'] = ''
+            temp['post_token'] = ''
+            temp['shutterstock_token'] = ''
+            temp['medals'] = json.loads(user.medals)
+            result.append(temp)
+
+        return JsonResponse(result, safe=False)
     return HttpResponse('Wrong request')

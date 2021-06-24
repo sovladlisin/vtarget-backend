@@ -1,3 +1,4 @@
+from users.models import VkUser
 from django.shortcuts import render
 
 from django.views.decorators.csrf import csrf_exempt
@@ -39,10 +40,40 @@ def updateMedal(request):
 
 
 @csrf_exempt
-def getMedals(request):
-    if request.method == 'GET':
-        result = []
-        for medal in Medal.objects.all():
-            result.append(model_to_dict(medal))
-        return JsonResponse(result, safe=False)
+def assignMedalToUser(request):
+    if request.method == 'POST':
+        data = json.loads(request.body.decode('utf-8'))
+        owner = data.get('owner', None)
+        medal_title = data.get('medal_title', None)
+        medal_tier = data.get('medal_tier', None)
+
+        user = VkUser.objects.get(pk=owner)
+        medals = json.loads(user.medals)
+        medals.append({'title': medal_title, 'tier': int(medal_tier)})
+        user.medals = json.dumps(medals)
+        user.save()
+        return HttpResponse(status=200)
+    return HttpResponse('Wrong request')
+
+
+@csrf_exempt
+def removeMedalFromUser(request):
+    if request.method == 'POST':
+        data = json.loads(request.body.decode('utf-8'))
+        owner = data.get('owner', None)
+        medal_title = data.get('medal_title', None)
+        medal_tier = data.get('medal_tier', None)
+
+        user = VkUser.objects.get(pk=owner)
+        medals = json.loads(user.medals)
+        new_medals = []
+        for m in medals:
+            if m['title'] == medal_title and m['tier'] == medal_tier:
+                pass
+            else:
+                new_medals.append(m)
+
+        user.medals = json.dumps(new_medals)
+        user.save()
+        return HttpResponse(status=200)
     return HttpResponse('Wrong request')

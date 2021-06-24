@@ -15,6 +15,9 @@ class VkUser(models.Model):
     is_admin = models.BooleanField(default=False)
     date_shutter_banned = models.DateField(default=datetime.date(2009, 5, 3))
 
+    # {tier: 1-4, title: ''}
+    medals = models.TextField(default='[]')
+
 
 class ServiceRequest(models.Model):
     user = models.ForeignKey(

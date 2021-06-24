@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import updateMedal, getMedals
+from .views import updateMedal, assignMedalToUser, removeMedalFromUser
 from .cabinets_view import getCabinets, createCabinet, deleteCabinet, updateCabinet, getCabinet
 from .charts_view import getCharts, createChart, deleteChart, updateChart
 from .tables_view import getTables, createTable, deleteTable, updateTable
@@ -8,9 +8,11 @@ from .tables_view import getTables, createTable, deleteTable, updateTable
 #                     getPermissions, name='vkUserPermissions')]
 urlpatterns = [path('charts/updateMedal',
                     updateMedal, name='updateMedal'),
-               path('charts/getMedals',
-                    getMedals, name='getMedals'),
 
+               path('charts/assignMedalToUser',
+                    assignMedalToUser, name='assignMedalToUser'),
+               path('charts/removeMedalFromUser',
+                    removeMedalFromUser, name='removeMedalFromUser'),
 
                path('charts/getCabinets',
                     getCabinets, name='getCabinets'),
