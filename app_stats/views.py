@@ -19,16 +19,16 @@ def getAppList(request):
         apps_ids = AppsIds.objects.all().first()
         data_apps = json.loads(apps_ids.data)
 
-        data_apps_searched = []
-        for i in data_apps:
-            if search in i['title']:
-                data_apps_searched.append(i)
+        # data_apps_searched = []
+        # for i in data_apps:
+        #     if search in i['title']:
+        #         data_apps_searched.append(i)
 
         sorted_data = sorted(
-            data_apps_searched, key=lambda x: x['members_count'], reverse=True)
+            data_apps, key=lambda x: x['members_count'], reverse=True)
         chunks_data = chunks(sorted_data, number_of_elements)
 
-        return JsonResponse({'data': chunks_data[page_number - 1], 'size': len(chunks_data)})
+        return JsonResponse({'data': sorted_data, 'size': len(sorted_data)})
 
 
 def updateIds(request):
