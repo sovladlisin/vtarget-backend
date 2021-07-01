@@ -84,7 +84,7 @@ def analyzeApps(request):
 
 
 def processIds(token):
-    result = {}
+    result = []
     ids_object = AppsIds.objects.all().first()
     ids_object.in_progress = True
     ids_object.save()
