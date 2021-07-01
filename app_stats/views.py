@@ -95,6 +95,7 @@ def processIds(token):
         step += 1
         ids_object.progress = str(step / len(ids))
         ids_object.save()
+        print(id)
         info = get_app_info(id, token)
         if info.get('id', None) is not None:
             result.append(get_app_info(id, token))
