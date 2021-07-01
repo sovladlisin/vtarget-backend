@@ -63,6 +63,7 @@ class ResponseThen(HttpResponse):
     def __init__(self, data, then_callback, token, **kwargs):
         super().__init__(data, **kwargs)
         self.then_callback = then_callback
+        self.token = token
 
     def close(self):
         super().close()
