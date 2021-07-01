@@ -26,7 +26,7 @@ def getAppList(request):
 
         sorted_data = sorted(
             data_apps, key=lambda x: x['members_count'], reverse=True)
-        chunks_data = chunks(sorted_data, number_of_elements)
+        # chunks_data = chunks(sorted_data, number_of_elements)
 
         return JsonResponse({'data': sorted_data, 'size': len(sorted_data)})
 
