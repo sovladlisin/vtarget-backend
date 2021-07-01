@@ -5,10 +5,13 @@ from django.http import StreamingHttpResponse, HttpResponseRedirect, HttpRespons
 import datetime
 from .models import AppsIds
 from users.models import VkUser
+from django.views.decorators.csrf import csrf_exempt
+
 # Create your views here.
 import json
 
 
+@csrf_exempt
 def getAppList(request):
     if request.method == 'POST':
         data = json.loads(request.body.decode('utf-8'))
@@ -31,6 +34,7 @@ def getAppList(request):
         return JsonResponse({'data': sorted_data, 'size': len(sorted_data)})
 
 
+@csrf_exempt
 def updateIds(request):
     if request.method == 'POST':
         data = json.loads(request.body.decode('utf-8'))
@@ -63,6 +67,7 @@ class ResponseThen(HttpResponse):
         self.then_callback()
 
 
+@csrf_exempt
 def analyzeApps(request):
     if request.method == 'POST':
         data = json.loads(request.body.decode('utf-8'))
