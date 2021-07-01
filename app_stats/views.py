@@ -66,7 +66,7 @@ class ResponseThen(HttpResponse):
 
     def close(self):
         super().close()
-        self.then_callback()
+        self.then_callback(self.token)
 
 
 @csrf_exempt
