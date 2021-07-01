@@ -94,7 +94,9 @@ def processIds(token):
         step += 1
         ids_object.progress = str(step / len(ids))
         ids_object.save()
-        result.append(get_app_info(id, token))
+        info = get_app_info(id, token)
+        if info.get('id', None) is not None:
+            result.append(get_app_info(id, token))
 
     ids_object.in_progress = False
     ids_object.progress = '100'
