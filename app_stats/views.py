@@ -43,7 +43,7 @@ def updateIds(request):
         return HttpResponse(status=200)
 
 
-def getAppAnayzeStatus(request):
+def getAppAnalyzeStatus(request):
     if request.method == 'GET':
         result = {}
         apps_ids = AppsIds.objects.all().first()
