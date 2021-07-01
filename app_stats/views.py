@@ -54,6 +54,8 @@ def getAppAnalyzeStatus(request):
         result['ids'] = json.loads(apps_ids.ids)
         result['progress'] = apps_ids.progress
         result['in_progress'] = apps_ids.in_progress
+        result['last_updated'] = apps_ids.last_updated
+
         return JsonResponse(result, safe=False)
 
 
