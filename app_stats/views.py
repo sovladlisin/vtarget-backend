@@ -14,13 +14,20 @@ def getAppList(request):
         data = json.loads(request.body.decode('utf-8'))
         number_of_elements = data.get('number_of_elements', 0)
         page_number = data.get('page_number', 0)
+        search = data.get('search', '')
 
         apps_ids = AppsIds.objects.all().first()
         data_apps = json.loads(apps_ids.data)
 
+        data_apps_searched = []
+        for i in data_apps:
+            if search in i['title']:
+                data_apps_searched.append(i)
+
         sorted_data = sorted(
-            data_apps, key=lambda x: x['members_count'], reverse=True)
+            data_apps_searched, key=lambda x: x['members_count'], reverse=True)
         chunks_data = chunks(sorted_data, number_of_elements)
+
         return JsonResponse({'data': chunks_data[page_number - 1], 'size': len(chunks_data)})
 
 
