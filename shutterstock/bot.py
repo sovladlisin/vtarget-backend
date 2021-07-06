@@ -154,9 +154,13 @@ def proccess_img(url, user_id, times=4):
     if 'deposit' in url.lower():
         sh_id = 'd' + url.split('/')[3]
 
-    existed = requests.post(
-        PHOTO_URL + '/api/get_tags_of_image', data=json.dumps({'sh_id': sh_id})).json()
-    if existed['response'] != 'image not found':
+    server_is_live = True
+    try:
+        existed = requests.post(
+            PHOTO_URL + '/api/get_tags_of_image', data=json.dumps({'sh_id': sh_id})).json()
+    except:
+        server_is_live = False
+    if server_is_live and existed['response'] != 'image not found':
         ex_url = existed['response'].get('url', None)
         result_url = PHOTO_URL + \
             str(ex_url)
@@ -242,15 +246,19 @@ def proccess_img(url, user_id, times=4):
                 'url': img_file,
                 'tags': tags
             }
-            r = requests.post(
-                PHOTO_URL + '/api/add_image', data=json.dumps(data))
-            existed_new = requests.post(
-                PHOTO_URL + '/api/get_tags_of_image', data=json.dumps({'sh_id': sh_id})).json()
-            result_url = PHOTO_URL + \
-                str(existed_new['response']['url'])
+            try:
+                r = requests.post(
+                    PHOTO_URL + '/api/add_image', data=json.dumps(data))
+                existed_new = requests.post(
+                    PHOTO_URL + '/api/get_tags_of_image', data=json.dumps({'sh_id': sh_id})).json()
+                result_url = PHOTO_URL + \
+                    str(existed_new['response']['url'])
 
-            send_message('Спасибо за ожидание. Дней в лицензии: ' + str(rest_of_days) + '. Осталось загрузок: ' + str(int(available_downloads) - 1) + '. Ссылка на изображение №' +
-                         str(sh_id) + ': ' + str(result_url), user_id)
+                send_message('Спасибо за ожидание. Дней в лицензии: ' + str(rest_of_days) + '. Осталось загрузок: ' + str(int(available_downloads) - 1) + '. Ссылка на изображение №' +
+                             str(sh_id) + ': ' + str(result_url), user_id)
+            except:
+                send_message('Спасибо за ожидание. Дней в лицензии: ' + str(rest_of_days) + '. Осталось загрузок: ' + str(int(available_downloads) - 1) + '. Ссылка на изображение №' +
+                             str(sh_id) + ': ' + str(img_file), user_id)
 
         else:
             proccess_img(url, user_id, times=times-1)
