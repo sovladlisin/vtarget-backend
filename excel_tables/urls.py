@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import updateExcelTable, uploadExcelTable, getExcelTables, deleteExcelTable
+from .views import updateExcelTable, uploadExcelTable, getExcelTables, deleteExcelTable, getExcelTable
 
 urlpatterns = [
     path('excel_tables/api/updateExcelTable',
@@ -10,4 +10,6 @@ urlpatterns = [
          getExcelTables, name='getExcelTables'),
     path('excel_tables/api/deleteExcelTable',
          deleteExcelTable, name='deleteExcelTable'),
+    path('excel_tables/api/getExcelTable',
+         getExcelTable, name='getExcelTable'),
 ]

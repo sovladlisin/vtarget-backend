@@ -72,6 +72,23 @@ def getExcelTables(request):
 
 
 @csrf_exempt
+def getExcelTable(request):
+    if request.method == 'POST':
+        data = json.loads(request.body.decode('utf-8'))
+        user_pk = data.get('user_pk', -1)
+        table_pk = data.get('table_pk', -1)
+
+        t = ExcelTable.objects.get(pk=table_pk)
+        if t.is_public == False and t.owner.pk != user_pk:
+            return HttpResponse(status=403)
+
+        response = {'id': t.pk, 'is_public': t.is_public,
+                    'owner': model_to_dict(t.owner), 'data': json.loads(t.data)}
+
+        return JsonResponse(response, safe=False)
+
+
+@csrf_exempt
 def deleteExcelTable(request):
     if request.method == 'DELETE':
         id = request.GET['id']
