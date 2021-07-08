@@ -26,7 +26,7 @@ sqlparse==0.3.0
 whitenoise==4.1.4
 wrapt==1.11.2
 yarl==1.2.6
-psycopg2
+psycopg2>=2.8,<2.9
 Pillow
 django-db-file-storage
 django-rest-framework
