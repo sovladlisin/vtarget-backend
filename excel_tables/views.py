@@ -105,7 +105,7 @@ def buildTablesFromExcel(data_file):
         count = 0
         ws = wb[sheet]
         table = {
-            'table_names': [],
+            'table_names': ['ID'],
             'rows': []
         }
         for row in ws:
@@ -116,6 +116,7 @@ def buildTablesFromExcel(data_file):
                 if count == 1:
                     for cell in row:
                         table['table_names'].append(str(cell.value))
+
                 else:
                     result_row = {}
                     cell_count_max = len(table['table_names'])
