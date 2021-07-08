@@ -20,7 +20,7 @@ def uploadExcelTable(request):
         user = VkUser.objects.get(pk=user_pk)
 
         file_d = request.FILES['file']
-        excel_file = file_d.read()
+        excel_file = file_d
         tables = buildTablesFromExcel(excel_file)
 
         response = []
