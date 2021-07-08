@@ -14,7 +14,7 @@ import json
 @csrf_exempt
 def uploadExcelTable(request):
     if request.method == 'POST':
-        user_pk = request.GET['pk']
+        user_pk = request.GET['user_pk']
         is_public = request.GET['is_public']
         title = request.GET['title']
         user = VkUser.objects.get(pk=user_pk)
