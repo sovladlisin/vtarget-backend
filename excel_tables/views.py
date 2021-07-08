@@ -109,6 +109,7 @@ def buildTablesFromExcel(data_file):
             'table_names': [],
             'rows': []
         }
+
         for row in ws:
             if not any(cell.value for cell in row):
                 pass
