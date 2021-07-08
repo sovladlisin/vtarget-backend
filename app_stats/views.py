@@ -38,7 +38,7 @@ def analyzeExcel(data_file):
 def getExcelIds(request):
     if request.method == 'POST':
         file_d = request.FILES['file']
-        excel_file = file_d.read()
+        excel_file = file_d
         excel_ids = analyzeExcel(excel_file)
         return JsonResponse(excel_ids, safe=False)
 
