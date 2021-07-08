@@ -126,7 +126,8 @@ def processIds(token):
     for id in ids:
         step += 1
         ids_object.progress = str(step / len(ids))
-        ids_object.save()
+        if step % 50 == 0:
+            ids_object.save()
         info = get_app_info(id, token)
         try:
             if info.get('id', None) is not None:
