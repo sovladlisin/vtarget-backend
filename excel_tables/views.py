@@ -24,9 +24,10 @@ def uploadExcelTable(request):
         tables = buildTablesFromExcel(excel_file)
 
         response = []
+        is_public_local = True if int(is_public) == 1 else False
         for table in tables:
             new_table = ExcelTable(
-                owner=user, data=json.dumps(table), is_public=is_public, title=title)
+                owner=user, data=json.dumps(table), is_public=is_public_local, title=title)
             new_table.save()
             response.append(
                 {'id': new_table.pk, 'is_public': new_table.is_public, 'owner': model_to_dict(new_table.owner)})
