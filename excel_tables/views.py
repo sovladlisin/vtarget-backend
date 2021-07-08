@@ -130,7 +130,7 @@ def buildTablesFromExcel(data_file):
                             value = '' if cell.value is None else cell.value
                             index = table['table_names'][cell_count-1]
                             result_row[index] = value
-                    result_row['id'] = count - 2
+                    result_row['ID'] = count - 2
                     table['rows'].append(result_row)
         result.append(table)
     return result
