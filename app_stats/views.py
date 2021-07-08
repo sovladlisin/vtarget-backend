@@ -1,3 +1,4 @@
+from json.decoder import JSONDecodeError
 from django.http.response import JsonResponse
 from django.shortcuts import render
 from think_bank.views import vk_request
@@ -6,9 +7,40 @@ import datetime
 from .models import AppsIds
 from users.models import VkUser
 from django.views.decorators.csrf import csrf_exempt
-
+from openpyxl import load_workbook
 # Create your views here.
 import json
+
+
+def analyzeExcel(data_file):
+    result = []
+    wb = load_workbook(data_file)
+    for sheet in wb.sheetnames:
+        ws = wb[sheet]
+        for row in ws:
+            if not any(cell.value for cell in row):
+                pass
+            else:
+                for cell in row:
+                    if cell.value and isinstance(cell.value, str):
+                        try:
+                            val = int(cell.value)
+                            if len(str(val)) == 7:
+                                result.append(val)
+                        except:
+                            pass
+                    elif cell.value and (isinstance(cell.value, float) or isinstance(cell.value, int)) and (len(str(int(cell.value)))) == 7:
+                        result.append(int(cell.value))
+    return result
+
+
+@csrf_exempt
+def getExcelIds(request):
+    if request.method == 'POST':
+        file_d = request.FILES['file']
+        excel_file = file_d.read()
+        excel_ids = analyzeExcel(excel_file)
+        return JsonResponse(excel_ids, safe=False)
 
 
 @csrf_exempt

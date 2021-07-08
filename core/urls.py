@@ -15,6 +15,7 @@ urlpatterns = [
     path('', include('charts.urls')),
     path('', include('chat.urls')),
     path('', include('app_stats.urls')),
+    path('', include('excel_tables.urls')),
     path('admin/', admin.site.urls),
     url(r'^files/', include('db_file_storage.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

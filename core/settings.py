@@ -48,7 +48,8 @@ INSTALLED_APPS = [
     'scheduler.apps.SchedulerConfig',
     'utils',
     'chat',
-    'app_stats'
+    'app_stats',
+    'excel_tables',
 ]
 
 REST_FRAMEWORK = {
