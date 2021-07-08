@@ -30,7 +30,7 @@ def uploadExcelTable(request):
                 owner=user, data=json.dumps(table), is_public=is_public_local, title=title)
             new_table.save()
             response.append(
-                {'id': new_table.pk, 'is_public': new_table.is_public, 'owner': model_to_dict(new_table.owner)})
+                {'id': new_table.pk, 'is_public': new_table.is_public, 'owner': model_to_dict(new_table.owner), 'title': new_table.title})
         return JsonResponse(response, safe=False)
 
 
@@ -63,11 +63,11 @@ def getExcelTables(request):
 
         for t in public:
             response['public'].append(
-                {'id': t.pk, 'is_public': t.is_public, 'owner': model_to_dict(t.owner)})
+                {'id': t.pk, 'is_public': t.is_public, 'owner': model_to_dict(t.owner), 'title': t.title})
 
         for t in owned:
             response['owned'].append(
-                {'id': t.pk, 'is_public': t.is_public, 'owner': model_to_dict(t.owner)})
+                {'id': t.pk, 'is_public': t.is_public, 'owner': model_to_dict(t.owner), 'title': t.title})
 
         return JsonResponse(response, safe=False)
 
@@ -84,7 +84,7 @@ def getExcelTable(request):
             return HttpResponse(status=403)
 
         response = {'id': t.pk, 'is_public': t.is_public,
-                    'owner': model_to_dict(t.owner), 'data': json.loads(t.data)}
+                    'owner': model_to_dict(t.owner), 'data': json.loads(t.data), 'title': t.title}
 
         return JsonResponse(response, safe=False)
 
