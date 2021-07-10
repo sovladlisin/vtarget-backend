@@ -21,6 +21,8 @@ class Cabinet(models.Model):
     end_date = models.CharField(max_length=400, default='')
 
     changing_interval = models.IntegerField(default=-1)
+    secondary_user = models.ForeignKey(
+        VkUser, blank=True, null=True, related_name='cabinet_secondary_user', on_delete=models.CASCADE)
 
 
 class Chart(models.Model):
