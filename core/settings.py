@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'chat',
     'app_stats',
     'excel_tables',
+    'account_duplicates'
 ]
 
 REST_FRAMEWORK = {
