@@ -32,7 +32,7 @@ def startAnalysis(request):
         user = VkUser.objects.get(pk=user_id)
 
         job = None
-        jobs = AccountDuplicateJob.object.all().filter(owner__pk=user.pk)
+        jobs = AccountDuplicateJob.objects.all().filter(owner__pk=user.pk)
         if jobs.count() == 0:
             job = AccountDuplicateJob(data='[]', owner=user, in_progress=True)
         else:
@@ -50,7 +50,7 @@ def getUserJob(request):
         user_id = data.get('user_id', None)
         user = VkUser.objects.get(pk=user_id)
 
-        jobs = AccountDuplicateJob.object.all().filter(owner__pk=user.pk)
+        jobs = AccountDuplicateJob.objects.all().filter(owner__pk=user.pk)
         if jobs.count() == 0:
             job = AccountDuplicateJob(data='[]', owner=user, in_progress=False)
         else:
