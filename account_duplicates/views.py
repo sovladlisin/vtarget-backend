@@ -34,7 +34,8 @@ def startAnalysis(request):
         job = None
         jobs = AccountDuplicateJob.objects.all().filter(owner__pk=user.pk)
         if jobs.count() == 0:
-            job = AccountDuplicateJob(data='[]', owner=user, in_progress=True)
+            job = AccountDuplicateJob(
+                data='[]', owner=user, in_progress=True, progress='0')
         else:
             job = jobs.first()
 
@@ -52,7 +53,8 @@ def getUserJob(request):
 
         jobs = AccountDuplicateJob.objects.all().filter(owner__pk=user.pk)
         if jobs.count() == 0:
-            job = AccountDuplicateJob(data='[]', owner=user, in_progress=False)
+            job = AccountDuplicateJob(
+                data='[]', owner=user, in_progress=False, progress='0')
         else:
             job = jobs.first()
         result = model_to_dict(job)
@@ -175,6 +177,7 @@ def search_people(job):
         if compare(current_user_obj, item):
             result.append(item)
             if i % 10 == 0:
+                print(count)
                 job.progress = str(int(i) / int(count))
                 job.save()
 
