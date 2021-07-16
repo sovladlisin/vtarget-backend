@@ -122,6 +122,7 @@ def applyServiceRequest(request):
                 {'name': 'Статистика приложений Vk',
                     'id': 10, 'link': '/app_stat'},
                 {'name': 'Таблицы Excel', 'id': 11, 'link': '/excel_tables'},
+                {'name': 'Клоны страниц', 'id': 12, 'link': '/account_duplicates'},
 
                 ]
 
@@ -164,6 +165,8 @@ def acceptServiceRequest(request):
                 {'name': 'Статистика приложений Vk',
                     'id': 10, 'link': '/app_stat'},
                 {'name': 'Таблицы Excel', 'id': 11, 'link': '/excel_tables'},
+                {'name': 'Клоны страниц', 'id': 12, 'link': '/account_duplicates'},
+
                 ]
 
     if request.method == 'POST':
