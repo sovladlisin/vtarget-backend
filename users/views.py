@@ -107,6 +107,24 @@ def getServiceRequests(request):
 
 
 @csrf_exempt
+def toggleUserAdminRole(request):
+    if request.method == 'POST':
+        user = json.loads(request.body.decode('utf-8'))
+        admin_pk = user.get('admin_pk', None)
+        user_pk = user.get('user_pk', None)
+        if user_pk is not None and admin_pk is not None:
+            user = VkUser.objects.get(pk=user_pk)
+            admin = VkUser.objects.get(pk=admin_pk)
+            if admin.is_admin:
+                if admin.pk == user.pk:
+                    return HttpResponse('ok', status=200)
+                user.is_admin = False if user.is_admin == True else True
+                user.save()
+                return HttpResponse('ok', status=200)
+    return HttpResponse('Wrong request')
+
+
+@csrf_exempt
 def applyServiceRequest(request):
 
     services = [{'name': 'Банк креативов', 'id': 1, 'link': '/think-bank'},
