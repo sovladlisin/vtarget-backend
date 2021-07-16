@@ -176,10 +176,10 @@ def search_people(job):
         i += 1
         if compare(current_user_obj, item):
             result.append(item)
-            if i % 10 == 0:
-                print(count)
-                job.progress = str(int(i) / int(count))
-                job.save()
+        if i % 10 == 0:
+            print(count)
+            job.progress = str(int(i) / int(count))
+            job.save()
 
     job.progress = '1'
     job.in_progress = False
