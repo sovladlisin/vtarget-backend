@@ -50,7 +50,8 @@ INSTALLED_APPS = [
     'chat',
     'app_stats',
     'excel_tables',
-    'account_duplicates'
+    'account_duplicates',
+    'ok_cabinets'
 ]
 
 REST_FRAMEWORK = {
@@ -74,7 +75,8 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
     "http://localhost:8080",
     "http://78.47.176.17:14291",
-    "http://ml.vtargete.ru:14291"
+    "http://ml.vtargete.ru:14291",
+    "http://148.251.136.126:25230"
 ]
 
 
