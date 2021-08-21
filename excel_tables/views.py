@@ -97,6 +97,8 @@ def deleteExcelTable(request):
         table.delete()
         return HttpResponse(status=200)
 
+# test
+
 
 def buildTablesFromExcel(data_file):
     result = []
