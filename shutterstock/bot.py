@@ -132,9 +132,9 @@ def Bot(request):
 
 def send_message(message, user_id):
     community_token = 'b80859e3d19b51d9c172b0b51c68f6824ee392617640be2f827ba1929f85d4c0ffe876e55e5f5d1dcbfb8'
-    rand = random.randint(-32768, 32767)
-    answer = vk_request('get', 'messages.send', {
-                        'peer_id': user_id, 'message': message, 'random_id ': rand}, community_token, '5.45')
+    rand = int(random.randint(-30000, 30000))
+    answer = vk_request('post', 'messages.send', {
+                        'peer_id': user_id, 'message': message, 'random_id': rand}, community_token, '5.131')
     print(answer)
 
 
