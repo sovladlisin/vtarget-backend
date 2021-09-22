@@ -104,7 +104,7 @@ def collect_attachments(attachments):
         if att['type'] == 'photo':
             att['photo'] = a['photo']['sizes'][-1]['url']
         result.append(att)
-    pass
+    return result
 
 
 def send_message(message, user_id):
