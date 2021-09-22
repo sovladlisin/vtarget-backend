@@ -103,7 +103,13 @@ def collect_attachments(attachments):
         att['type'] = a['type']
         if att['type'] == 'photo':
             att['photo'] = a['photo']['sizes'][-1]['url']
-        result.append(att)
+            result.append(att)
+
+        if att['type'] == 'wall':
+            att['wall_id'] = str(a['wall']['from_id']) + \
+                "_" + str(a['wall']['id'])
+            result.append(att)
+
     return result
 
 
