@@ -65,8 +65,9 @@ def proccess_message(m_body):
     for m in fwd_messages:
         c_m = collect_message(m)
 
-        inner_fwd_messages = m['fwd_messages']
+        inner_fwd_messages = m.get('fwd_messages', [])
         inner_fwd_messages_list = []
+
         for m_2 in inner_fwd_messages:
             c_m_2 = collect_message(m_2)
             inner_fwd_messages_list.append(c_m_2)
