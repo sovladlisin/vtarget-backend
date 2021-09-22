@@ -8,7 +8,6 @@ from think_bank.views import vk_request
 import requests
 
 import datetime
-from .views import addDownloadRecord
 
 
 class ResponseThen(HttpResponse):
@@ -60,7 +59,7 @@ def proccess_message(user_id):
 
 
 def send_message(message, user_id):
-    community_token = 'b80859e3d19b51d9c172b0b51c68f6824ee392617640be2f827ba1929f85d4c0ffe876e55e5f5d1dcbfb8'
+    community_token = 'ec944a7cbd5b2bd0f86a5b5096782dd0ada66e6d8dbb0903a3321dfd8787ee1849385d2b5126d5df28b62'
     rand = int(random.randint(-30000, 30000))
     answer = vk_request('post', 'messages.send', {
                         'peer_id': user_id, 'message': message, 'random_id': rand}, community_token, '5.131')

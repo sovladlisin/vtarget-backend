@@ -18,6 +18,7 @@ urlpatterns = [
     path('', include('excel_tables.urls')),
     path('', include('account_duplicates.urls')),
     path('', include('ok_cabinets.urls')),
+    path('', include('message_bank.urls')),
     path('admin/', admin.site.urls),
     url(r'^files/', include('db_file_storage.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

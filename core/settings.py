@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     'app_stats',
     'excel_tables',
     'account_duplicates',
-    'ok_cabinets'
+    'ok_cabinets',
+    'messsage_bank',
 ]
 
 REST_FRAMEWORK = {
