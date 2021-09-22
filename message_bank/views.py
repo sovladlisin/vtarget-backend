@@ -17,9 +17,24 @@ def getMessages(request):
         for m in messages:
             temp = {}
             temp['date'] = m.date
+            temp['id'] = m.pk
             temp['date_added'] = m.date_written
             temp['body'] = json.loads(m.body)
             temp['fwd_body'] = json.loads(m.body)
 
         return JsonResponse(result, safe=False)
+    return HttpResponse('Wrong request')
+
+
+@csrf_exempt
+def deleteMessage(request):
+    if request.method == 'DELETE':
+        pk = request.GET.get('id', None)
+        if None in [id]:
+            return HttpResponse(status=403)
+
+        m = MessageBankUnit.objects.get(pk=pk)
+        m.delete
+
+        return HttpResponse(status=200)
     return HttpResponse('Wrong request')
