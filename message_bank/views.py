@@ -17,7 +17,7 @@ def getMessages(request):
         for m in messages:
             temp = {}
             temp['date'] = m.date
-            temp['date_added'] = m.date_added
+            temp['date_added'] = m.date_written
             temp['body'] = json.loads(m.body)
             temp['fwd_body'] = json.loads(m.body)
 
