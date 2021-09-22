@@ -84,14 +84,14 @@ def proccess_message(m_body):
 
 def collect_message(m):
     result = {}
-    result['text'] = m['text']
-    result['date'] = m['date']
-    result['from_id'] = m['from_id']
-    result['attachments'] = collect_attachments(m['attachments'])
+    result['text'] = m.get('text', '')
+    result['date'] = m.get('date', '')
+    result['from_id'] = m.get('from_id', '')
+    result['attachments'] = collect_attachments(m.get('attachments', []))
 
     user_info = getVkUserInfo(result['from_id'])
-    result['name'] = user_info['name']
-    result['photo'] = user_info['photo']
+    result['name'] = user_info.get('name', '')
+    result['photo'] = user_info.get('photo', '')
 
     return result
 
