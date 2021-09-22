@@ -21,6 +21,7 @@ def getMessages(request):
             temp['date_added'] = m.date_written
             temp['body'] = json.loads(m.body)
             temp['fwd_body'] = json.loads(m.body)
+            result.append(temp)
 
         return JsonResponse(result, safe=False)
     return HttpResponse('Wrong request')
