@@ -77,10 +77,10 @@ def Bot(request):
 
 
 def proccess_message(m_body):
-    fwd_messages = m_body.get('fwd_messages', None)
+    fwd_messages = m_body.get('fwd_messages', [])
     reg_user_id = m_body.get('from_id', None)
 
-    if fwd_messages is None:
+    if len(fwd_messages) == 0:
         send_message('Нет прикрепленных сообщений', reg_user_id)
 
     for m in fwd_messages:
