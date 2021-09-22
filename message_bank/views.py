@@ -18,7 +18,7 @@ def getMessages(request):
             temp = {}
             temp['date'] = m.date
             temp['id'] = m.pk
-            temp['date_added'] = m.date_written
+            temp['date_written'] = m.date_written
             temp['body'] = json.loads(m.body)
             temp['fwd_body'] = json.loads(m.fwd_body)
             result.append(temp)
