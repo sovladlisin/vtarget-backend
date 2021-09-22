@@ -35,7 +35,7 @@ def deleteMessage(request):
             return HttpResponse(status=403)
 
         m = MessageBankUnit.objects.get(pk=pk)
-        m.delete
+        m.delete()
 
         return HttpResponse(status=200)
     return HttpResponse('Wrong request')
