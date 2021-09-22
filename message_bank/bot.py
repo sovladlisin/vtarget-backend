@@ -6,7 +6,7 @@ from users.models import VkUser, ServiceRequest
 from django.http import StreamingHttpResponse, HttpResponseRedirect, HttpResponse
 from think_bank.views import vk_request
 import requests
-
+from .models import MessageBankUnit
 import datetime
 
 
@@ -55,8 +55,54 @@ def Bot(request):
     return HttpResponse('ok', content_type="text/plain", status=200)
 
 
-def proccess_message(text):
+def proccess_message(m_body):
+    fwd_messages = m_body.get('fwd_messages', None)
+    reg_user_id = m_body.get('from_id', None)
 
+    if fwd_messages is None:
+        send_message('Нет прикрепленных сообщений', reg_user_id)
+
+    for m in fwd_messages:
+        c_m = collect_message(m)
+
+        inner_fwd_messages = m['fwd_messages']
+        inner_fwd_messages_list = []
+        for m_2 in inner_fwd_messages:
+            c_m_2 = collect_message(m_2)
+            inner_fwd_messages_list.append(c_m_2)
+
+        save_message = MessageBankUnit(
+            date=datetime.datetime.now(),
+            date_written=c_m['date'],
+            body=json.dumps(c_m),
+            fwd_body=json.dumps(inner_fwd_messages_list)
+        )
+        save_message.save()
+        send_message('Успех', reg_user_id)
+
+
+def collect_message(m):
+    result = {}
+    result['text'] = m['text']
+    result['date'] = m['date']
+    result['from_id'] = m['from_id']
+    result['attachments'] = collect_attachments(m['attachments'])
+
+    user_info = getVkUserInfo(result['from_id'])
+    result['name'] = user_info['name']
+    result['photo'] = user_info['photo']
+
+    return result
+
+
+def collect_attachments(attachments):
+    result = []
+    for a in attachments:
+        att = {}
+        att['type'] = a['type']
+        if att['type'] == 'photo':
+            att['photo'] = a['photo']['sizes'][-1]['url']
+        result.append(att)
     pass
 
 
@@ -66,3 +112,19 @@ def send_message(message, user_id):
     answer = vk_request('post', 'messages.send', {
                         'peer_id': user_id, 'message': message, 'random_id': rand}, community_token, '5.131')
     print(answer)
+
+
+def getVkUserInfo(user_id):
+    try:
+        user_data = vk_request('get', 'users.get', {
+                               'user_ids': user_id, 'fields': 'photo_200'}, 'ec944a7cbd5b2bd0f86a5b5096782dd0ada66e6d8dbb0903a3321dfd8787ee1849385d2b5126d5df28b62', '5.124')['response'][0]
+
+        result = {}
+
+        result['vk_id'] = user_data['id']
+        result['photo'] = user_data['photo_200']
+        result['name'] = user_data['first_name'] + ' ' + user_data['last_name']
+
+        return result
+    except:
+        return -1
