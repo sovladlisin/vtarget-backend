@@ -1,5 +1,4 @@
 from django.urls import path
-from .views import getDownloadRecords, activatePhotostockAccount, getPhotostockAccounts, connectShutterstock, disconnectShutterstock, shutterstockLogin, createPhotostockAccount, deletePhotostockAccount, editPhotostockAccount
 from .bot import Bot
 
 urlpatterns = [
