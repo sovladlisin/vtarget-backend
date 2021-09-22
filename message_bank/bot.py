@@ -11,14 +11,14 @@ import datetime
 
 
 class ResponseThen(HttpResponse):
-    def __init__(self, data, then_callback, user_id, **kwargs):
+    def __init__(self, data, then_callback, message, **kwargs):
         super().__init__(data, **kwargs)
         self.then_callback = then_callback
-        self.user_id = user_id
+        self.message = message
 
     def close(self):
         super().close()
-        self.then_callback(self.user_id)
+        self.then_callback(self.message)
 
 
 @csrf_exempt
@@ -33,10 +33,11 @@ def Bot(request):
             return HttpResponse("5c2d39ba")
         if (type == 'message_new'):
             message = data['object']
-            text = message.get('body', None)
+            text = message.get('message', None)
             print('MESSAGE', text)
+            print('BIDY', message)
 
-            user_id = message['user_id']
+            user_id = text['from_id']
             filtered_users = VkUser.objects.all().filter(user_id=user_id)
 
             if filtered_users.count() == 0:
@@ -45,7 +46,7 @@ def Bot(request):
                 return HttpResponse('ok', content_type="text/plain", status=200)
 
             try:
-                return ResponseThen('ok', proccess_message, user_id, status=200)
+                return ResponseThen('ok', proccess_message, text, status=200)
             except:
                 send_message(
                     'К сожалению возникла ошибка, просим извенения за неудобства. Повторите ваш запрос через несколько минут', user_id)
@@ -54,7 +55,8 @@ def Bot(request):
     return HttpResponse('ok', content_type="text/plain", status=200)
 
 
-def proccess_message(user_id):
+def proccess_message(text):
+
     pass
 
 
