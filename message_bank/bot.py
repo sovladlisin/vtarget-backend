@@ -44,6 +44,27 @@ def Bot(request):
                 send_message(
                     'К сожалению вы не зарегистрированы на нашем сервисе.\nДля регистрации пройдите по ссылке: http://ml.vtargete.ru:14291 ', user_id)
                 return HttpResponse('ok', content_type="text/plain", status=200)
+            user = filtered_users.first()
+
+            authorize = user.is_admin
+            autorize_set = ServiceRequest.objects.all().filter(
+                service_id=14, is_accepted=True, user=user)
+            if autorize_set.count() != 0:
+                application = autorize_set.first()
+                d1 = application.date_until
+                d2 = datetime.date.today()
+                if d1 > d2:
+                    authorize = True
+                else:
+                    application.is_accepted = False
+                    application.is_pending = True
+                    application.is_denied = False
+                    application.save()
+
+            if authorize == False:
+                send_message(
+                    'К сожалению у вас нет прав для пользования сервисом банка сообщений. Для получения доступа оставьте заявку на сайте нашего сервиса. При долгом рассмотрении заявки напишите Константину Крестинину.', user_id)
+                return HttpResponse('ok', content_type="text/plain", status=200)
 
             try:
                 return ResponseThen('ok', proccess_message, text, status=200)

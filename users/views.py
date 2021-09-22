@@ -142,6 +142,7 @@ def applyServiceRequest(request):
                 {'name': 'Таблицы Excel', 'id': 11, 'link': '/excel_tables'},
                 {'name': 'Клоны страниц', 'id': 12, 'link': '/account_duplicates'},
                 {'name': 'ОК кабинеты', 'id': 13, 'link': '/ok_cabinets'},
+                {'name': 'Банк сообщений', 'id': 14, 'link': '/message_bank'},
                 ]
 
     if request.method == 'POST':
@@ -185,6 +186,7 @@ def acceptServiceRequest(request):
                 {'name': 'Таблицы Excel', 'id': 11, 'link': '/excel_tables'},
                 {'name': 'Клоны страниц', 'id': 12, 'link': '/account_duplicates'},
                 {'name': 'ОК кабинеты', 'id': 13, 'link': '/ok_cabinets'},
+                {'name': 'Банк сообщений', 'id': 14, 'link': '/message_bank'},
                 ]
 
     if request.method == 'POST':
