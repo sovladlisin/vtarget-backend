@@ -110,6 +110,10 @@ def collect_attachments(attachments):
                 "_" + str(a['wall']['id'])
             result.append(att)
 
+        if att['type'] == 'link':
+            att['link_url'] = a['link']['url']
+            result.append(att)
+
     return result
 
 
