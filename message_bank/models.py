@@ -11,6 +11,8 @@ class MessageBankUnit(models.Model):
     body = models.TextField(default='{}')
     fwd_body = models.TextField(default='[]')
 
+    title = models.TextField(default='')
+
 
 class MessageBankRepostPermission(models.Model):
 

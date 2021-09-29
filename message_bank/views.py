@@ -21,6 +21,8 @@ def getMessages(request):
             temp['date_written'] = m.date_written
             temp['body'] = json.loads(m.body)
             temp['fwd_body'] = json.loads(m.fwd_body)
+            temp['title'] = m.title
+
             result.append(temp)
 
         return JsonResponse(result, safe=False)
@@ -38,6 +40,33 @@ def deleteMessage(request):
         m.delete()
 
         return HttpResponse(status=200)
+    return HttpResponse('Wrong request')
+
+
+@csrf_exempt
+def updateMessageTitle(request):
+    if request.method == 'POST':
+        data = json.loads(request.body.decode('utf-8'))
+
+        title = data.get('title', None)
+        message_pk = data.get('message_pk', None)
+
+        if None in [title, message_pk]:
+            return HttpResponse(status=400)
+
+        message = MessageBankUnit.objects.get(pk=message_pk)
+        message.title = title
+        message.save()
+
+        response = {}
+        response['date'] = message.date
+        response['id'] = message.pk
+        response['date_written'] = message.date_written
+        response['body'] = json.loads(message.body)
+        response['fwd_body'] = json.loads(message.fwd_body)
+        response['title'] = message.title
+
+        return JsonResponse(response, safe=False)
     return HttpResponse('Wrong request')
 
 
