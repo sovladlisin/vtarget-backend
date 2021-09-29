@@ -6,7 +6,7 @@ from users.models import VkUser, ServiceRequest
 from django.http import StreamingHttpResponse, HttpResponseRedirect, HttpResponse
 from think_bank.views import vk_request
 import requests
-from .models import MessageBankUnit
+from .models import MessageBankUnit, MessageBankRepostPermission
 import datetime
 
 
@@ -47,23 +47,29 @@ def Bot(request):
             user = filtered_users.first()
 
             authorize = user.is_admin
-            autorize_set = ServiceRequest.objects.all().filter(
-                service_id=14, is_accepted=True, user=user)
-            if autorize_set.count() != 0:
-                application = autorize_set.first()
-                d1 = application.date_until
-                d2 = datetime.date.today()
-                if d1 > d2:
+            # autorize_set = ServiceRequest.objects.all().filter(
+            #     service_id=14, is_accepted=True, user=user)
+            # if autorize_set.count() != 0:
+            #     application = autorize_set.first()
+            #     d1 = application.date_until
+            #     d2 = datetime.date.today()
+            #     if d1 > d2:
+            #         authorize = True
+            #     else:
+            #         application.is_accepted = False
+            #         application.is_pending = True
+            #         application.is_denied = False
+            #         application.save()
+
+            authorize_set = MessageBankRepostPermission.objects.all().filter(user=user)
+            if authorize_set.count() != 0:
+                auth = authorize_set.first()
+                if auth.is_allowed == 1:
                     authorize = True
-                else:
-                    application.is_accepted = False
-                    application.is_pending = True
-                    application.is_denied = False
-                    application.save()
 
             if authorize == False:
                 send_message(
-                    'К сожалению у вас нет прав для пользования сервисом банка сообщений. Для получения доступа оставьте заявку на сайте нашего сервиса. При долгом рассмотрении заявки напишите Константину Крестинину.', user_id)
+                    'К сожалению у вас нет прав для добавления сообщений в банк сообщений. Для получения доступа напишите Константину Крестинину.', user_id)
                 return HttpResponse('ok', content_type="text/plain", status=200)
 
             try:
