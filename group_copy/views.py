@@ -216,16 +216,19 @@ def copy_group(id, post_token):
     g_type = group.get('type', None)
     g_photo = group['photo_200']
 
-    current_setting = vk_request('get', 'groups.getSettings', {
-                                 'group_id': group_id}, post_token, '5.126')['response']
+    try:
+        current_setting = vk_request('get', 'groups.getSettings', {
+            'group_id': group_id}, post_token, '5.126')['response']
 
-    g_title = current_setting.get('title', None)
-    g_website = current_setting.get('website', None)
-    g_public_category = current_setting.get('public_category', None)
-    g_description = current_setting.get('description', None)
-    g_phone = current_setting.get('phone', None)
-    g_public_subcategory = current_setting.get('public_subcategory', None)
-    g_age_limits = current_setting.get('age_limits', None)
+        g_title = current_setting.get('title', None)
+        g_website = current_setting.get('website', None)
+        g_public_category = current_setting.get('public_category', None)
+        g_description = current_setting.get('description', None)
+        g_phone = current_setting.get('phone', None)
+        g_public_subcategory = current_setting.get('public_subcategory', None)
+        g_age_limits = current_setting.get('age_limits', None)
+    except:
+        pass
 
     posts = []
     wall = vk_request('get', 'wall.get', {
