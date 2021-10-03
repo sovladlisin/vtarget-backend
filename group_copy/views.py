@@ -51,11 +51,12 @@ def copy_group(id, post_token):
                 print(item)
                 if type == 'link':
                     link_url = item[type]['url']
-                    photo_id = item[type]['photo']['id']
-                    photo_owner = item[type]['photo']['owner_id']
-                    final_attachments += 'photo' + \
-                        str(photo_owner) + '_' + \
-                        str(photo_id) + ',' + str(link_url)
+                    # photo_id = item[type]['photo']['id']
+                    # photo_owner = item[type]['photo']['owner_id']
+                    # final_attachments += 'photo' + \
+                    #     str(photo_owner) + '_' + \
+                    #     str(photo_id) + ',' + str(link_url)
+                    final_attachments += link_url
                 else:
                     owner_id = str(item[type]['owner_id'])
                     media_id = str(item[type]['id'])
@@ -231,15 +232,15 @@ def copy_group(id, post_token):
     except:
         pass
 
-    posts = []
-    wall = vk_request('get', 'wall.get', {
-                      'owner_id': group_id * -1, 'count': 100}, post_token, '5.126')['response']['items']
-    for post in wall:
-        close_comments = post['comments']['can_post'] * -1
-        attachments = getAttachments(post)
-        text = post['text']
-        posts.append({'text': text, 'attachments': attachments,
-                      'close_comments': close_comments})
+    # posts = []
+    # wall = vk_request('get', 'wall.get', {
+    #                   'owner_id': group_id * -1, 'count': 100}, post_token, '5.126')['response']['items']
+    # for post in wall:
+    #     close_comments = post['comments']['can_post'] * -1
+    #     attachments = getAttachments(post)
+    #     text = post['text']
+    #     posts.append({'text': text, 'attachments': attachments,
+    #                   'close_comments': close_comments})
 
     created_group_id = handle_create(
         g_title, g_description, g_type, g_public_category, 2, post_token)
