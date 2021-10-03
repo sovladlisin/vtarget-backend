@@ -48,6 +48,7 @@ def copy_group(id, post_token):
         if len(attachments) != 0:
             for item in attachments:
                 type = item['type']
+                print(item)
                 if type == 'link':
                     link_url = item[type]['url']
                     photo_id = item[type]['photo']['id']
