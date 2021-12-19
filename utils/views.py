@@ -11,6 +11,7 @@ from .models import CollectTagsJob
 from django.views.decorators.csrf import csrf_exempt
 import random
 
+IMAGE_SOURCE_URL = 'http://shutterstock.parsers.services.vtargete.ru:14292'
 IMAGE_SEARCH_URL = 'http://shutterstock.parsers.services.vtargete.ru:14292/api/search'
 IMAGE_TAGS_URL = 'http://shutterstock.parsers.services.vtargete.ru:14292/api/get_tags_of_image'
 IMAGE_GET_URL = 'http://shutterstock.parsers.services.vtargete.ru:14292/api/get_images'
@@ -74,7 +75,7 @@ def getVtarget(word, word2, page=1):
     imgs = r2['response']['images']
     result = []
     for img in imgs:
-        result.append('http://ml.vtargete.ru:14292' + img['url'])
+        result.append(IMAGE_SOURCE_URL + img['url'])
 
     return result
 
