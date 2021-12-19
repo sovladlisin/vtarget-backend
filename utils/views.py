@@ -11,6 +11,9 @@ from .models import CollectTagsJob
 from django.views.decorators.csrf import csrf_exempt
 import random
 
+IMAGE_SEARCH_URL = 'http://shutterstock.parsers.services.vtargete.ru:14292/api/search'
+IMAGE_TAGS_URL = 'http://shutterstock.parsers.services.vtargete.ru:14292/api/get_tags_of_image'
+IMAGE_GET_URL = 'http://shutterstock.parsers.services.vtargete.ru:14292/api/get_images'
 
 def getWord():
     # headers = {
@@ -62,7 +65,6 @@ def getSearchStable(word1, word2, page, search):
 
 
 def getVtarget(word, word2, page=1):
-    IMAGE_SEARCH_URL = 'http://ml.vtargete.ru:14292/api/search'
 
     words = [word2.lower(), word]
     body = {'from': (int(page) - 1) * 50, 'to': int(page) * 50, 'fuilds': {
@@ -166,7 +168,6 @@ def getAllTags(result={}, step=1, all=99999):
         def match(text, alphabet=set('абвгдеёжзийклмнопрстуфхцчшщъыьэюя')):
             return not alphabet.isdisjoint(text.lower())
 
-        IMAGE_TAGS_URL = 'http://ml.vtargete.ru:14292/api/get_tags_of_image'
         new_dict = dict_
         data = {"id": id}
         r = requests.post(IMAGE_TAGS_URL, json.dumps(data)).json()
@@ -191,7 +192,6 @@ def getAllTags(result={}, step=1, all=99999):
         job.save()
         return 'Ok'
 
-    IMAGE_GET_URL = 'http://ml.vtargete.ru:14292/api/get_images'
     data = {"from": start, "to": finish}
     r = requests.post(IMAGE_GET_URL, json.dumps(data)).json()
     all_count = r['response']['all_images_cnt']
