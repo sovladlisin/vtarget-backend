@@ -197,7 +197,7 @@ def copy_group(id, post_token):
 
     group = vk_request('get', 'groups.getById', {
                        'group_id': group_id, 'fields': 'activity,addresses,city,contacts,country,cover,crop_photo,screen_name,type'}, post_token, '5.126')
-
+    print(group)
     group = group['response'][0]
     g_screen_name = group['screen_name']
     group_id = group['id']
@@ -220,6 +220,7 @@ def copy_group(id, post_token):
 
     current_setting = vk_request('get', 'groups.getSettings', {
         'group_id': group_id}, post_token, '5.126')['response']
+    print(current_setting)
 
     g_title = current_setting.get('title', None)
     g_website = current_setting.get('website', None)
