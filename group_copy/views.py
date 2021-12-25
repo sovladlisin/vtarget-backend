@@ -220,8 +220,10 @@ def copy_group(id, post_token):
     g_photo = group['photo_200']
 
     current_setting = vk_request('get', 'groups.getSettings', {
-        'group_id': group_id}, post_token, '5.126')['response']
+        'group_id': group_id}, post_token, '5.126')
     print(current_setting)
+
+    current_setting = current_setting['response'] 
 
     g_title = current_setting.get('title', None)
     g_website = current_setting.get('website', None)
