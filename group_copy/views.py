@@ -116,7 +116,8 @@ def copy_group(id, post_token):
             'subtype': subtype
         },
             token, '5.126')
-        # print(created_group_info)
+        
+        print(created_group_info)
         return created_group_info['response']['id']
 
     def handle_edit(g_id, access, desc, website, subject, phone, public_cat, public_sub_cat, country, city, age_limits, addresses, token):
