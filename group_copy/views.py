@@ -107,12 +107,13 @@ def copy_group(id, post_token):
             posted_vk_id = vk_request(
                 'post', 'wall.post', props, token, '5.124')
 
-    def handle_create(title, desc, g_type, public_cat, subtype, token):
+    def handle_create(title, desc, g_type, public_cat, public_subcategory, subtype, token):
         created_group_info = vk_request('get', 'groups.create', {
             'title': title,
             'description': desc,
             'type': 'public' if g_type == 'page' else g_type,
             'public_category': public_cat,
+            'public_subcategory': public_subcategory,
             'subtype': subtype
         },
             token, '5.126')
@@ -244,7 +245,7 @@ def copy_group(id, post_token):
     #                   'close_comments': close_comments})
 
     created_group_id = handle_create(
-        g_title, g_description, g_type, g_public_category, 2, post_token)
+        g_title, g_description, g_type, g_public_category, g_public_subcategory, 2, post_token)
 
     url_type = 'public' if g_type == 'page' else g_type
     created_group_url = 'https://vk.com/' + \
