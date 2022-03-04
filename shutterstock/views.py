@@ -102,6 +102,8 @@ def createPhotostockAccount(request):
     return HttpResponse('Wrong request')
 
 
+
+
 @ csrf_exempt
 def editPhotostockAccount(request):
     if request.method == 'POST':
