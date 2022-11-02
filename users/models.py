@@ -18,6 +18,9 @@ class VkUser(models.Model):
     # {tier: 1-4, title: ''}
     medals = models.TextField(default='[]')
 
+    def __str__(self):
+        return self.user_name
+
 
 class ServiceRequest(models.Model):
     user = models.ForeignKey(
@@ -29,7 +32,12 @@ class ServiceRequest(models.Model):
 
     date_until = models.DateField(default=datetime.date(2021, 5, 3))
 
+    def __str__(self):
+        return self.user.user_name + str(self.service_id)
 
 class ServiceInfo(models.Model):
     text = models.TextField(default=' ')
     service_id = models.IntegerField(default=-1)
+
+    def __str__(self):
+        return self.text
