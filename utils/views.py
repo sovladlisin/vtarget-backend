@@ -41,9 +41,8 @@ def getLinks(word, word2, search, page=1):
     t = r2.text.split('"')
     res = {}
     for y in t:
-        if 'https://image.shutterstock.com/' in y:
-            if 'vector' not in y:
-                res[y] = 1
+        if 'https://www.shutterstock.com/image-photo/' in y:
+            res[y] = 1
 
     urls = list(res.keys())
     return urls
