@@ -23,8 +23,7 @@ def runLegacyRequest(request):
     return HttpResponse('Wrong request')
 
 def get_as_base64(url):
-
-    return base64.b64encode(requests.get(url)).content
+    return base64.b64encode(requests.get(url).content)
 
 @csrf_exempt
 def runLegacyShutterstockGetImages(request):
@@ -34,7 +33,7 @@ def runLegacyShutterstockGetImages(request):
         url = data_main.get('url', None)
 
 
-        response = requests.post(url, data).json()
+        response = requests.post(url, data=json.dumps(data)).json()
         images = response['response'].get('images', [])
         new_images = []
         for image in images:
