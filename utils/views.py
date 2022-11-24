@@ -81,7 +81,7 @@ def getVtarget(word, word2, page=1):
     for image in images:
         base = get_as_base64('http://shutterstock.parsers.services.vtargete.ru:14292' + image['url'])
         image['base'] = base.decode("utf-8")
-        new_images.append(base.decode("utf-8"))
+        new_images.append('data:image/png;base64, ' + base.decode("utf-8"))
     return new_images
 
 
