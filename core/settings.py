@@ -77,7 +77,8 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:8080",
     "http://78.47.176.17:14291",
     "http://ml.vtargete.ru:14291",
-    "http://148.251.136.126:25230"
+    "http://148.251.136.126:25230",
+    "https://vtargete.pro"
 ]
 
 
