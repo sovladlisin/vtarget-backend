@@ -129,7 +129,7 @@ def searchVtarget(request):
             return JsonResponse({'links': getVtargetSearchStable(word1, word2, page), 'word': word2}, safe=False)
 
         links, word2 = getVtargetSearch(word1)
-        print('vt',{'links': links, 'word': word2} )
+        print('vt', len(links),word2 )
         return JsonResponse({'links': links, 'word': word2}, safe=False)
     return HttpResponse('Wrong request')
 
