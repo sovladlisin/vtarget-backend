@@ -14,9 +14,9 @@ def runLegacyRequest(request):
         url = data_main.get('url', None)
         
         if request_type == 'POST':
-            response = requests.post(url=url, data=json.dumps(data))
+            response = requests.post(url=url, data=json.dumps(data)).json()
         if request_type == 'GET':
-            response = requests.get(url=url, params=params)
+            response = requests.get(url=url, params=params).json()
 
         return JsonResponse(response, safe=False)
     return HttpResponse('Wrong request')
