@@ -26,6 +26,7 @@ def get_as_base64(url):
 
     return base64.b64encode(requests.get(url)).content
 
+@csrf_exempt
 def runLegacyShutterstockGetImages(request):
     if request.method == 'POST':
         data_main = json.loads(request.body.decode('utf-8'))
@@ -46,6 +47,7 @@ def runLegacyShutterstockGetImages(request):
 
     return HttpResponse('Wrong request')
 
+@csrf_exempt
 def runLegacyShutterstock(request):
     if request.method == 'POST':
         data_main = json.loads(request.body.decode('utf-8'))
