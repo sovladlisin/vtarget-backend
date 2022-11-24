@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import searchVtarget, getRandWord, searchShutterstock, getTagJobStatus, startCollectTagsJob
-
+from .certificates import runLegacyRequest
 urlpatterns = [
     path('utils/getRandWord',
          getRandWord, name='getRandWord'),
@@ -12,4 +12,6 @@ urlpatterns = [
          getTagJobStatus, name='getTagJobStatus'),
     path('utils/startCollectTagsJob',
          startCollectTagsJob, name='startCollectTagsJob'),
+     path('utils/runLegacyRequest',
+         runLegacyRequest, name='runLegacyRequest'),
 ]
