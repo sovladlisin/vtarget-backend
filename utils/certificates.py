@@ -38,7 +38,7 @@ def runLegacyShutterstockGetImages(request):
         new_images = []
         for image in images:
             base = get_as_base64('http://shutterstock.parsers.services.vtargete.ru:14292' + image['url'])
-            image['base'] = base
+            image['base'] = base.decode("utf-8")
             new_images.append(image)
         all_images_cnt = response['response'].get('all_images_cnt', 0)
         
