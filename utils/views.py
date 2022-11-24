@@ -48,7 +48,7 @@ def getLinks(word, word2, search, page=1):
     link = "https://www.shutterstock.com/ru/search/{word}+{word2}?page={page}{search}".format(
         word=word, word2=word2, page=page, search=search)
     print('shutterlink^^^:', link)
-    r2 = requests.post(link, headers=headers, body=json.dumps(body))
+    r2 = requests.post(link, headers=headers, data=json.dumps(body))
     print('TEST', r2)
     print('TEST2', r2.json())
     t = r2.text.split('"')
