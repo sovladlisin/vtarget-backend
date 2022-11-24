@@ -10,6 +10,7 @@ from .models import CollectTagsJob
 # Create your views here.
 from django.views.decorators.csrf import csrf_exempt
 import random
+import base64
 
 IMAGE_SOURCE_URL = 'http://shutterstock.parsers.services.vtargete.ru:14292'
 IMAGE_SEARCH_URL = 'http://shutterstock.parsers.services.vtargete.ru:14292/api/search'
@@ -65,20 +66,23 @@ def getSearchStable(word1, word2, page, search):
     links = getLinks(word1, word2, search, page=page)
     return links
 
+def get_as_base64(url):
+    return base64.b64encode(requests.get(url).content)
 
 def getVtarget(word, word2, page=1):
 
     words = [word2.lower(), word]
-    body = {'from': (int(page) - 1) * 50, 'to': int(page) * 50, 'fuilds': {
+    body = {'from': (int(page) - 1) * 10, 'to': int(page) * 10, 'fuilds': {
         'required_words': words, 'any_words': []}}
 
-    r2 = requests.post(IMAGE_SEARCH_URL, data=json.dumps(body)).json()
-    imgs = r2['response']['images']
-    result = []
-    for img in imgs:
-        result.append(IMAGE_SOURCE_URL + img['url'])
-
-    return result
+    response = requests.post(IMAGE_SEARCH_URL, data=json.dumps(body)).json()
+    images = response['response'].get('images', [])
+    new_images = []
+    for image in images:
+        base = get_as_base64('http://shutterstock.parsers.services.vtargete.ru:14292' + image['url'])
+        image['base'] = base.decode("utf-8")
+        new_images.append(base.decode("utf-8"))
+    return new_images
 
 
 def getVtargetSearch(word, times=15):
