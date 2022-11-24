@@ -32,25 +32,21 @@ def getWord():
 
 
 def getLinks(word, word2, search, page=1):
-
-
-    
-
     headers = {
         'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'}
     
-    body = {
+    data = {
         'from': 1,
         'to': 21
     }
-    r2 = requests.get('http://ml.vtargete.ru/certificates/api/get_clusters', headers=headers)
-
+    r = requests.post('http://ml.vtargete.ru/certificates/api/get_clusters', headers=headers, data=json.dumps(data))
+    print('TEST',r)
+    print('TEST',r.json())
+    
     link = "https://www.shutterstock.com/ru/search/{word}+{word2}?page={page}{search}".format(
         word=word, word2=word2, page=page, search=search)
     print('shutterlink^^^:', link)
-    r2 = requests.post(link, headers=headers, data=json.dumps(body))
-    print('TEST', r2)
-    print('TEST2', r2.json())
+    r2 = requests.get(link, headers=headers)
     t = r2.text.split('"')
     res = {}
     for y in t:
