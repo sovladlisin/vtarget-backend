@@ -52,6 +52,6 @@ def runLegacyShutterstock(request):
         data_main = json.loads(request.body.decode('utf-8'))
         data = data_main.get('data', None)
         url = data_main.get('url', None)
-        response = requests.post(url, data).json()
+        response = requests.post(url, json.dumps(data)).json()
         return JsonResponse(response, safe=False)
     return HttpResponse('Wrong request')
