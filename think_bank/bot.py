@@ -17,7 +17,8 @@ def Bot(request):
         if (type == 'confirmation'):
             return HttpResponse("6379f1c3")
         if (type == 'message_new'):
-            message = data['object']
+            print()
+            message = data.get('object', {}).get('message', None)
             user_id = message['user_id']
 
             filtered_users = VkUser.objects.all().filter(user_id=user_id)
