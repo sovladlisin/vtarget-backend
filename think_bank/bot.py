@@ -19,7 +19,7 @@ def Bot(request):
         if (type == 'message_new'):
             print('DATAAAA',data)
             message = data.get('object', {}).get('message', None)
-            user_id = message['user_id']
+            user_id = message['from_id']
 
             filtered_users = VkUser.objects.all().filter(user_id=user_id)
             if filtered_users.count() == 0:
