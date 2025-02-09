@@ -17,7 +17,7 @@ def Bot(request):
         if (type == 'confirmation'):
             return HttpResponse("6379f1c3")
         if (type == 'message_new'):
-            print()
+            print('DATAAAA',data)
             message = data.get('object', {}).get('message', None)
             user_id = message['user_id']
 
