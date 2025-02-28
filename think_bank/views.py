@@ -18,6 +18,7 @@ def getPostsByUserId(request):
     if request.method == 'POST':
         data = json.loads(request.body.decode('utf-8'))
         id = data.get('id', None)
+        vk_token = data.get('vk_token', None)
         if id is not None:
             posts = Post.objects.all().filter(user__pk=id)
             result = []
@@ -30,6 +31,14 @@ def getPostsByUserId(request):
                     temp.append(model_to_dict(c))
                     d_post['comments'] = temp
                 result.append(d_post)
+
+            local_user = VkUser.objects.all().filter(user_id=id)
+            if local_user.count() > 0:
+                local_user = local_user.first()
+                if vk_token:
+                    local_user.token = vk_token
+                    local_user.save()
+            
             return JsonResponse(result, safe=False)
         return HttpResponse('404')
     return HttpResponse('Wrong request')
